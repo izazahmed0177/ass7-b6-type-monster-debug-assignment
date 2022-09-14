@@ -1,3 +1,4 @@
+///
 const display = document.getElementById("display");
 const question = document.getElementById("question");
 const startBtn = document.getElementById("start");
@@ -18,6 +19,8 @@ fetch("./texts.json")
     questionText = data[Math.floor(Math.random() * data.length)];
     question.innerHTML = questionText;
   });
+
+
 
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
@@ -54,12 +57,18 @@ const typeController = (e) => {
   }
 };
 
+
+/////
+
 const validate = (key) => {
   if (key === questionText[userText.length - 1]) {
     return true;
   }
   return false;
 };
+
+
+//////
 
 // FINISHED TYPING
 const gameOver = () => {
@@ -94,10 +103,16 @@ const gameOver = () => {
   display.classList.add("inactive");
 };
 
+
+/////
+
 const closeModal = () => {
   modalBackground.classList.toggle("hidden");
   resultModal.classList.toggle("hidden");
 };
+
+
+/////
 
 const start = () => {
   // If already started, do not start again
@@ -123,12 +138,17 @@ const start = () => {
   }, 1000);
 };
 
+
+
+//////
+
 // START Countdown
 startBtn.addEventListener("click", start);
 
 // If history exists, show it
 displayHistory();
 
+///
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
