@@ -299,89 +299,115 @@
         <!-- Q 3 -->
         <section class="m-5">
             <div class="container text-bg-light p-5">
-                <h2>3.Difference between forEach, map and filter, find ?</h2>
-                <p>Array functions are something that can help you with any type of manipulation or looping through an
-                    array of items in JavaScript. Some of the pre-built functions can have very similar use cases to one
-                    another, therefore I have created a list of manipulation functions, with how they look and their use
-                    cases.</p>
-
-                <h4>1 .forEach()</h4>
-                <p>Function .forEach() is another form of just a plain for loop that can be used to iterate through
-                    array items. This case of a function is used for more complex arrays, for example, an array of
-                    objects with a lot of entries than just an array of integers.
-                    <br>
-                    This function takes 1 parameter .forEach(callback). The parameter callback can take up to 3
-                    parameters element, index & array (but only the element parameter is required, the rest is
-                    optional).
-                    <br>
-                    The parameter element will be used as a variable that stores the current element in the array.
-                    Parameter index refers to the element's index in the array and the parameter array points to the
-                    array that it was called on.
-                    <br>
-                    I do have to say that the newer prebuilt loop for..of in JavaScript is way more efficient than the
-                    .forEach() in code clarity and its performance.
-                </p>
-                <h4>2 .map()</h4>
-                <p>Function .map() is a manipulative function that can modify each element's content in an array that it
-                    is called on. This function returns a new array with modified values, the array that it is called on
-                    will stay still. This function is useful for adding a little change to an already existing array,
-                    for example adding a property to an object or modifying it. Its construction and use are identical
-                    to the previous function .forEach() and both can be used interchangeably.
-                    <br>
-                    Just like the function .forEach(), this function also takes only 1 parameter .map(callback). The
-                    parameter callback can take up to 3 parameters element, index & array (but only the element
-                    parameter is required, the rest is optional).
-                </p>
-
-                <h4>3 .filter()</h4>
+                <h2>3.How to work javascript event loop?</h2>
                 <p>
-                    Function .filter() is a search function that returns all the elements that fulfil the assigned
-                    condition. You can search by simple terms, for example, that element is equal to a certain integer,
-                    or by more advanced terms, for example, searching for an object with certain property that is equal
-                    to something. Both examples have a very frequent use as a developer.
+
+                    We often hear that JavaScript is a single-threaded programming language, which means it executes all
+                    of the instructions line by line in a synchronous manner. Thus since everything works on the main
+                    thread, there seems to be no possibility of executing parallel processes in JavaScript.
                     <br>
-                    This function returns an array of found results, if any, even if only 1 match is found. If a
-                    function does not find any match, it simply returns an empty array.
-                    <br>
-                    Just like the function .forEach(), this function also takes only 1 parameter .filter(callback). The
-                    parameter callback can take up to 3 parameters element, index & array (but only the element
-                    parameter is required, the rest is optional).
+                    But now let's assume that we have a function which is taking some time to execute, for example in
+                    the below function which is having a loop over 10k times, the console.log() would be executed once
+                    the loop is over and in the meantime, our UI interaction with the browser would be interrupted.
                 </p>
 
-                <h4>4 .find()</h4>
-                <p>Function .find() is also a search function like the previous but they differ in one small detail —
-                    this function returns only one match in an array. If in an array is more than one result, the
-                    function will return the first that has matched.
+                <div class="text-success">
+                    function someTimeTakingFunc() {
                     <br>
-                    Just like the function .forEach(), this function also takes only 1 parameter .find(callback). The
-                    parameter callback can take up to 3 parameters element, index & array (but only the element
-                    parameter is required, the rest is optional).
+                    for(var i = 0; i < 10000; i++) { <br>
+
+                        }
+                        <br>
+                        console.log("Loop has been executed")
+                        }
+                </div>
+                <p>
+                    The above scenario seems to be impractical, but there might be cases where any function can take an
+                    indeterminate amount of time and our main thread would be blocked, for example calling an API for
+                    fetching data from the server-side. And this is the practical use case we are dealing with in
+                    development every day. So how JavaScript handles this and where does the event loop come into the
+                    picture? We will surely get to know this, but before moving further, let's understand the basic
+                    memory architecture in JavaScript.
+                </p>
+                <h4>Memory Organization of JavaScript:</h4>
+                <p>
+                    The Javascript Engine consists of two main components:
+                    <br>
+
+                    1. Memory Heap — this is where the memory allocation happens, all of our object variables are
+                    assigned
+                    here in a random manner.
+                    <br>
+                    2. Call Stack — this is where your function calls are stored.
+                </p>
+                <h4>Javascript Web APIs</h4>
+                <p>
+                    These are the additional functionality, that helps us perform some additional tasks which cannot be
+                    run using the main thread. However, since our JavaScript runtime is single-threaded, it can export
+                    some tasks to the WEB APIs which helps us to respond to multiple threads. Example of some web APIs
+                    are:
+                    <br>
+                    1. DOM <br>
+                    2. Ajax (Network requests) <br>
+                    3. setTimeout() <br>
+                    For instance, setTimeout() is called, the browser delegates the task to a different thread to
+                    calculate the time interval specified in the argument of the setTimeout() method, and once done this
+                    tread would then call the desired function in callback stack.
+                    <br>
+                    Since JavaScript is single-threaded, the browser has the capability of delegating the task in
+                    multiple threads. But how does the event loop help in these executions? But now we are good to go
+                    ahead with Event Loop.
                 </p>
 
+                <h4>Event Loop</h4>
+                <p>
+                    Since we know that Web APIs delegate some of the tasks to different threads, on completion of these
+                    tasks, how the main or desired functions are sent to the call stack.
+                    <br>
+                    Event Queue is a special queue, which keeps track of all the functions queues, which are needed to
+                    be pushed into the call stack. The event queue is responsible for sending new functions to the track
+                    for processing. The queue data structure is required to maintain the correct sequence in which all
+                    operations should be sent for execution.
+                    <br>
+                    Let's take an example, in the following example, we are using a setTimeout function, which will log
+                    the "executed" string after 2000 milliseconds.
+                </p>
+
+                <div class="text-success">
+                    setTimeout(function(){
+                    <br>
+                    console.log("Executed";)
+                    <br>
+                    }, 2000);
+                </div>
+
+                <p>
+                    Now when a setTimeout operation is processed in the call stack. On its execution, it calls a web API
+                    which fires a timer for 2000 milliseconds. After 2000 milliseconds has been elapsed, the web API,
+                    place the callback function of setTimeout in the event queue.
+                    <br>
+                    Here need to mention that, just placing our function does not necessarily imply that the function
+                    will get executed. This function has to be pushed into the call stack for execution and here the
+                    event loop comes into the picture. The event loop waits for the function stack to be empty, once the
+                    call stack is empty this will push the first function from the event queue to the call stack, and in
+                    this way, the desired function will be called.
+                </p>
+                <p>
+                    Thus event loop works in a cyclic manner, where it continually checks whether or not the call stack
+                    is empty. If it is empty, new functions are added from the event queue. If it is not, then the
+                    current function call is processed.
+                </p>
             </div>
         </section>
         <!-- Q 4 -->
         <section class="m-5 ">
             <div class="container text-bg-light p-5">
-                <h2>4. Why we use template string in javascript ?</h2>
+                <h2>4. How do I get undefined in JavaScript? ?</h2>
 
-                <p>Template strings are a powerful feature of modern JavaScript released in ES6. It lets us
-                    insert/interpolate variables and expressions into strings without needing to concatenate like in
-                    older versions of JavaScript. It allows us to create strings that are complex and contain dynamic
-                    elements. Another great thing that comes with template strings are tags. Tags are functions that
-                    take a string and the decomposed parts of the string as parameters and are great for converting
-                    strings to different entities.
-                    <br>
-                    The syntax for creating template strings is by using backticks to delimit them. For example, we can
-                    write:
-                    <br>
-                    <span class="text-success">`This is a string`</span>
+                <div>
 
-                    <br>
-                    This is a very simple example of a template string. All the content is constant and there are no
-                    variables or expressions in it. To add variables and or expressions to a string, we can do the
-                    following.
-                </p>
+                </div>
+
 
             </div>
         </section>
