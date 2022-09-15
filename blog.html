@@ -406,6 +406,159 @@
 
                 <div>
 
+                    <p>
+                        JavaScript interpreter returns undefined when accessing a variable or object property that is
+                        not yet initialized. For example:
+                    </p>
+                    <div class="text-success">
+                        let company;
+                        <br>
+                        company; // => undefined <br>
+                        let person = { name: 'John Smith' }; <br>
+                        person.age; // => undefined
+                    </div>
+                    <p>
+                        JavaScript is permissive, developers have the temptation to access uninitialized values. I'm
+                        guilty of such bad practice too.
+                        <br>
+                        Often such risky actions generate undefined related errors:
+                        <br>
+                        1. TypeError: 'undefined' is not a function <br>
+                        2. TypeError: Cannot read property 'prop-name' of undefined
+                        and alike type errors.
+                        <br>
+                        JavaScript developer can understand the irony of this joke:
+                    </p>
+
+                    <div class="text-success">
+                        function undefined() { <br>
+                        // problem solved
+                        <br>
+                        }
+                    </div>
+                    <p>To reduce such errors, you have to understand the cases when undefined is generated. Let's
+                        explore undefined and its effect on code safety.</p>
+
+                    <p>
+                        Undefined value primitive value is used when a variable has not been assigned a value.
+                    </p>
+                    <p>
+                        The standard clearly defines that you will receive undefined when accessing uninitialized
+                        variables, non-existing object properties, non-existing array elements, and alike.
+                        <br>
+                        A few examples:
+                    </p>
+
+                    <div class="text-success">
+                        let number; <br>
+                        number; // => undefined <br>
+                        let movie = { name: 'Interstellar' }; <br>
+                        movie.year; // => undefined <br>
+                        let movies = ['Interstellar', 'Alexander']; <br>
+                        movies[3]; // => undefined
+                    </div>
+                    <p>
+                        The above example demonstrates that accessing:
+
+                        1. an uninitialized variable number <br>
+                        2. a non-existing object property movie.year <br>
+                        3. or a non-existing array element movies[3] <br>
+                        are evaluated to undefined.
+                    </p>
+                    <p>Undefined type is a type whose sole value is the undefined value.</p>
+                    <div class="text-success">
+                        let nothing; <br>
+                        typeof nothing === 'undefined'; // => true
+                    </div>
+
+                    <p>A declared variable but not yet assigned with a value (uninitialized) is by default undefined.
+                    </p>
+
+                    <div class="text-success">
+                        let myVariable; <br>
+                        myVariable; // => undefined
+                    </div>
+                    <p>When accessing a non-existing object property, JavaScript returns undefined.</p>
+                    <div class="text-success">
+                        let favoriteMovie = { <br>
+                        title: 'Blade Runner' <br>
+                        }; <br>
+                        favoriteMovie.actors; // => undefined
+                    </div>
+
+                    <p>The function parameters implicitly default to undefined.</p>
+
+                    <div class="text-success">
+                        function multiply(a, b) { <br>
+                        a; // => 5 <br>
+                        b; // => undefined <br>
+                        return a * b; <br>
+                        } <br>
+                        multiply(5); // => NaN
+                    </div>
+                    <p>The invocation multiply(5) is performed with a single argument: as result a parameter is 5, but
+                        the b parameter is undefined.</p>
+
+                    <p>Implicitly, without return statement, a JavaScript function returns undefined.</p>
+
+                    <div class="text-success">
+                        function square(x) { <br>
+                        const res = x * x; <br>
+                        } <br>
+                        square(2); // => undefined
+                    </div>
+                    <p>
+                        What it does mean inside a function to have return; statement? The function returns undefined.
+                        If you don't know in detail the mechanism of ASI, the unexpectedly returned undefined is
+                        misleading.
+                        <br>
+                        For instance, let's study the returned value of getPrimeNumbers() invocation:
+                    </p>
+                    <div class="text-success">
+                        function getPrimeNumbers() { <br>
+                        return <br>
+                        [ 2, 3, 5, 7, 11, 13, 17 ] <br>
+                        } <br>
+                        getPrimeNumbers() // => undefined
+                    </div>
+                    <p>
+                        void 'expression' evaluates the expression and returns undefined no matter the result of the
+                        evaluation.
+                    </p>
+                    <div class="text-success">
+                        void 1; // => undefined <br>
+                        void (false); // => undefined <br>
+                        void {name: 'John Smith'}; // => undefined <br>
+                        void Math.min(1, 3); // => undefined
+                    </div>
+                    <p>One use case of void operator is to suppress expression evaluation to undefined, relying on some
+                        side-effect of the evaluation.</p>
+
+                    <p>You get undefined when accessing an array element with an out of bounds index.</p>
+                    <div class="text-success">
+                        const colors = ['blue', 'white', 'red']; <br>
+                        colors[5]; // => undefined <br>
+                        colors[-1]; // => undefined
+                    </div>
+                    <p>
+                        colors array has 3 elements, thus valid indexes are 0, 1, and 2.
+                        <br>
+                        Because there are no array elements at indexes 5 and -1, the accessors colors[5] and colors[-1]
+                        are undefined.
+                    </p>
+
+                    <p>
+                        undefined existence is a consequence of JavaScript's permissive nature that allows the usage of:
+                        <br>
+                        1. uninitialized variables <br>
+                        2. non-existing object properties or methods <br>
+                        3. out of bounds indexes to access array elements <br>
+                        4.the invocation result of a function that returns nothing
+                        <br>
+                        Comparing directly against undefined is unsafe because you rely on a permitted but discouraged
+                        practice mentioned above.
+                    </p>
+
                 </div>
 
 
