@@ -148,9 +148,9 @@
 
                         The sessionStorage object also has a couple of other properties -
                         <br>
-                        1. length − This property returns the number of key/value pairs in the session storage.
+                        1. length - This property returns the number of key/value pairs in the session storage.
                         <br>
-                        2. key() − This method accepts an index as a parameter and returns the key at that index in the
+                        2. key() - This method accepts an index as a parameter and returns the key at that index in the
                         session storage
                         <br>
                         Session Storage is a great way to improve the performance of your web applications and store
@@ -164,103 +164,135 @@
         <!--Q 2 -->
         <section class="m-5">
             <div class="container text-bg-light p-5">
-                <h2>2.Difference Between Arrow Function and Regular Function ?</h2>
-                <p>An arrow function is also known as the fat arrow function. It is a new feature introduced in ES6 that
-                    is a more concise syntax for writing function expressions. Both regular JavaScript functions and
-                    arrow functions work in a similar manner but there are some differences between them. <br> Let's see
-                    the
-                    differences below: -</p>
+                <h2>2.What is the difference between global scope and block scope?</h2>
+                <div>
+                    <h4>Global Scope</h4>
+                    <p>
+                        Variables defined outside any function, block, or module scope have global scope. Variables in
+                        global scope can be accessed from everywhere in the application.
+                        <br>
+                        When a module system is enabled it's harder to make global variables, but one can still do it.
+                        By defining a variable in HTML, outside any function, a global variable can be created:
+                    </p>
+                    <div class="text-success">
+                        script
+                        <br>
+                        let GLOBAL_DATA = { value : 1};
+                        <br>
+                        script
+                        <br>
+                        console.log(GLOBAL_DATA);
+                    </div>
+                    <p>
+                        When there is no module system in place, it is a lot easier to create global variables. A
+                        variable declared outside any function, in any file, is a global variable.
+                        <br>
+                        Global variables are available for the lifetime of the application.
+                        <br>
+                        Another way for creating a global variable is to use the window global object anywhere in the
+                        application:
+                    </p>
 
-                <ul>
-                    <li>Syntax</li>
-                    <li>Arguments binding</li>
-                    <li>Use of this keyword</li>
-                    <li>Using a new keyword</li>
+                    <div class="text-success">
+                        window.GLOBAL_DATA = { value: 1 };
+                    </div>
+                    <p>At this point, the GLOBAL_DATA variable is visible everywhere.</p>
+                    <div class="text-success">
+                        console.log(GLOBAL_DATA)
+                    </div>
+                    <p>Please note that variables declared inside a function without var keyword also become global
+                        variables.</p>
 
-                </ul>
-                <h4>1) Syntax:</h4>
-                <p>A programmer can get the same result as regular functions by writing a few lines of code using arrow
-                    functions.</p>
-                <p>Curly brackets are not required if only one expression is present.</p>
-                <div class="text-success">
-                    // Regular function ES5: br
-                    var add = function(a, b) { return a + b;};
-                    <br>
-                    // Arrow function ES6
-                    <br>
-                    let add = (a, b) => { return a + b};
-                    <br>
-                    //or
-                    <br>
-                    let add = (a, b) => a + b;
                 </div>
 
-                <h4>2) Arguments binding</h4>
-                <p> object inside the regular functions contains the list of arguments.</p>
-                <div class="text-success">
-                    // Object with Regular function
-                    <br>
-                    let showData = {
-                    <br>
-                    showArg: function(){
-                    <br>
-                    console.log(arguments);
-                    <br>
-                    }
-                    <br>
-                    }
-                    <br>
-                    showData.showArg(1,2,3);
-                    <br> // output {0:1,1:2,2:3}
+                <div>
+                    <h4>Block Scope</h4>
+                    <p>
+                        Block scope is defined with curly braces. It is separated by { and }.
+                        <br>
+                        Variables declared with let and const can have block scope. They can only be accessed in the
+                        block in which they are defined.
+                        <br>
+                        Consider the next code that emphasizes let block scope:
+                    </p>
+                    <div class="text-success">
+                        let x = 1;
+                        <br>
+                        {
+                        <br>
+                        let x = 2;
+                        <br>
+                        }
+                        <br>
+                        console.log(x); //1
+                    </div>
+                    <p>In contrast, the var declaration has no block scope:</p>
+                    <div class="text-success">
+                        var x = 1;
+                        <br>
+                        {
+                        <br>
+                        var x = 2;
+                        <br>
+                        }
+                        <br>
+                        console.log(x); //2
+                    </div>
+                    <p>
+                        Another common problem with not having block scope is the use of an asynchronous operation like
+                        setTimeout() in a loop. The flowing loop code displays the number 5, five times.
+                    </p>
+                    <div class="text-success">
+                        (function run(){
+                        <br>
+                        for(var i=0; i<5; i++){ <br>
+                            setTimeout(function logValue(){
+                            <br>
+                            console.log(i); //5
+                            <br>
+                            }, 100);
+                            <br>
+                            }
+                            <br>
+                            })();
+                    </div>
+                    <p>
+                        The for loop statement, with the let declaration, creates a new variable locale to the block
+                        scope, for each iteration. The next loop code shows 0 1 2 3 4 5.
+                    </p>
+
+                    <div class="text-success">
+                        (function run(){
+                        <br>
+                        for(let i=0; i<5; i++){ <br>
+                            setTimeout(function log(){
+                            <br>
+                            console.log(i); //0 1 2 3 4
+                            <br>
+                            }, 100);
+                            <br>
+                            }
+                            <br>
+                            })();
+                    </div>
+
+
+
                 </div>
 
-                <p>The arrow function, on the opposite, doesn't define arguments i.e. they do not have arguments
-                    binding.</p>
-                <div class="text-success">
-
-                    // Object with Arrow function
+                <p class="fw-bold">
+                    Variables defined in global scope are available everywhere in the application.
                     <br>
-                    let showData = {
+                    In a module, a variable declared outside any function is hidden and not available to other modules
+                    unless it is explicitly exported.
                     <br>
-                    showArg: ()=>console.log(arguments);
+                    Function scope means that parameters and variables defined in a function are visible everywhere
+                    within the function
                     <br>
-                    }
-                    <br>
-                    showData.showArg(1,2,3);
-                    <br>
-                    // Uncaught ReferenceError: arguments is not defined
-                </div>
-
-                <p>But you can easily access the arrow function arguments using a rest parameter ...args.</p>
-                <div class="text-success">
-                    // using rest parameters
-                    <br>
-                    let showData = {
-                    <br>
-                    showArg: (...args)=>console.log(args);
-                    <br>
-                    }
-                    <br>
-                    myFunc.showArgs(1, 2, 3, 4); // [1, 2, 3, 4]
-                </div>
-
-                <h4>3) Use of this keyword</h4>
-                <p>Inside of a regular JavaScript function, this value is dynamic. The dynamic context means that the
-                    value of this depends on how the function is invoked.</p>
-                <p>The behavior of this inside of an arrow, function differs considerably from the regular function’s
-                    this behavior as an arrow function does not have its own “this” keyword.
-                    <br>
-                    The value of this inside an arrow function remains the same throughout the lifecycle of the function
-                    and is always bound to the value of this in the closest non-arrow parent function which means No
-                    matter how or where being executed, this value inside of an arrow function always equals this value
-                    from the outer function.
+                    Variables declared with let and const have block scope. var doesn’t have block scope.
                 </p>
 
-                <h4>4) Using a new keyword</h4>
-                <p>Regular functions are constructible and callable. They can be called using the new keyword.</p>
 
-                <p>But, the arrow functions are only callable and not constructible, i.e., arrow functions can never be
-                    used as constructor functions.</p>
 
             </div>
         </section>
