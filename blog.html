@@ -37,30 +37,127 @@
         <!-- Q 1 -->
         <section class="m-5">
             <div class="container text-bg-light p-5">
-                <h2>1.Difference between var, let and const keywords in JavaScript ?</h2>
+                <h2>1.What is the difference between local storage and session storage in browser ?</h2>
+
                 <p>
-                    A variable declaration is simply telling the computer that a variable exists and what value it
-                    should start with. Similar to other programming languages JavaScript also allows for the declaration
-                    of variables.
-
-                    There are three keywords in JavaScript that can be used to declare variables: let, var, and const.
-                    Each keyword has different rules and implications for how the variables they create can be used.<br>
-
-                    1.let: The let keyword declares a block-scoped local variable, optionally initializing it to a
-                    value.
-                    Block-scoped means that the variable is only available within the block it was declared in, which is
-                    usually denoted by curly braces {}. <br>
-
-                    2.var: The var keyword declares a function-scoped or global variable, optionally initializing it to
-                    a value.
-                    Function-scoped means that the variable is only available within the function it was declared in.
-                    Global variables are available throughout your entire code. <br>
-
-                    3.const: The const keyword declares a block-scoped, immutable constant variable, i.e. a variable
-                    that can't be reassigned.
-                    Constants are also called “immutable variables”, but that's a bit of a misnomer since they are
-                    actually variables - just ones that can't be reassigned.
+                    <span class="fw-bold">Local storage</span> is the most recent mechanism. It allows for larger
+                    amounts of data to be stored, but the data is not deleted when the browser is closed. Local storage
+                    is useful for storing data that the user will need to access later, such as offline data.
                 </p>
+                <p>
+                    <span class="fw-bold"> Session storage</span> is similar to cookies, but the data is only stored for
+                    the current session. This means that the data will be deleted when the user closes the browser.
+                    Session storage is useful for storing data that is sensitive, such as login credentials.
+                </p>
+                <div>
+                    <h4>Local Storage</h4>
+                    <p>
+                        Most web applications these days require some type of user input, whether it be for a username,
+                        shipping address, or even just a preferences setting. This input is then usually sent off to a
+                        server somewhere to be processed and stored. However, what if your application needs to store
+                        data locally on the user's computer? This is where Local Storage comes in.
+                        <br>
+                        Local Storage is a type of web storage that allows JavaScript to store and access data right in
+                        the browser. This is especially useful for storing data that you want to persist even if the
+                        user closes the browser, such as preferences or settings.
+                        <br>
+                        The data in Local Storage is stored in key/value pairs. The key is like the name of the data,
+                        and the value is like the actual data itself. You can think of it as a variable in JavaScript.
+                        To store data in Local Storage, you first need to create a key. Then you can store any data you
+                        want under that key.
+                        <br>
+                        To create a key, you use the setItem() method. This method takes two arguments, the first is the
+                        key, and the second is the value you want to store.
+                    </p>
+                    <div class="text-success">
+                        localStorage.setItem('key', 'value');
+                    </div>
+                    <p>
+                        Now that you have a key, you can store any data you want under that key. The data you store can
+                        be any data type that JavaScript supports, including strings, numbers, objects, and arrays.
+
+                        To store data, you use the setItem() method again. This time, you pass in the key as the first
+                        argument and the data you want to store as the second argument.
+                    </p>
+                    <div class="text-success">
+                        localStorage.setItem('key', 'value');
+                    </div>
+
+                    <p>
+                        To retrieve data from Local Storage, you use the getItem() method. This method takes the key as
+                        an argument and returns the data that is stored under that key.
+                    </p>
+                    <div class="text-success">
+                        localStorage.getItem('key');
+                    </div>
+                    <p>
+                        If you want to remove an item from Local Storage, you use the removeItem() method. This method
+                        takes the key as an argument and removes the data that is stored under that key.
+                    </p>
+                    <div class="text-success">
+                        localStorage.removeItem('key');
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Session Storage</h4>
+                    <p>
+                        Session Storage is a type of web storage that allows web applications to store data locally
+                        within the user's browser. Unlike cookies, data stored in session storage is specific to the
+                        site on which it was created and data is not shared with other sites.
+                        <br>
+                        Session Storage is a new feature introduced in HTML5 that allows you to store data locally in
+                        the user's browser. Unlike cookies, data stored in session storage is specific to the site on
+                        which it was created and data is not shared with other sites.
+
+                        Session Storage is a way of storing data on the client side of an application. It's similar to
+                        local storage, but with a few key differences -
+                        <br>
+                        1. Session Storage data is only available to the site that created it.
+                        <br>
+                        2. Session Storage data is not shared with other sites.
+                        <br>
+                        3. Session Storage data is not persistent, meaning it is only available for the duration of the
+                        user's session on a site.
+                        <br>
+                        4. Session Storage data is specific to the browser tab in which it was created.
+                        <br>
+                        Session Storage is a great way to improve the performance of your web applications by reducing
+                        the amount of data that needs to be transferred between the client and server. It can also be
+                        used to store data in a more secure way since the data is not stored in cookies where it can be
+                        accessed by third-party sites.
+                        <br>
+                        To use Session Storage in your web applications, you'll need to use the sessionStorage object.
+                        This object provides access to the current session's storage.
+                        <br>
+                        The sessionStorage object has two methods
+                        <br>
+                        setItem() - This method sets a key/value pair in the session storage.
+                        <br>
+                    </p>
+                    <div class="text-success">
+                        sessionStorage.setItem("name", "tutorialsPoint");
+                    </div>
+                    <p>
+                        getItem() - This method retrieves the value of a key from the session storage.
+                    </p>
+                    <div class="text-success">
+                        var name = sessionStorage.getItem("name");
+                    </div>
+                    <p>
+
+                        The sessionStorage object also has a couple of other properties -
+                        <br>
+                        1. length − This property returns the number of key/value pairs in the session storage.
+                        <br>
+                        2. key() − This method accepts an index as a parameter and returns the key at that index in the
+                        session storage
+                        <br>
+                        Session Storage is a great way to improve the performance of your web applications and store
+                        data in a more secure way.
+                    </p>
+                </div>
+
 
             </div>
         </section>
