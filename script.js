@@ -1,6 +1,7 @@
 ///
 const display = document.getElementById("display");
 const question = document.getElementById("question");
+// problem 1 solve
 // const startBtn = document.getElementById("start");
 const startBtn = document.getElementById("starts");
 const countdownOverlay = document.getElementById("countdown");
@@ -50,9 +51,10 @@ const typeController = (e) => {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
   } else {
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
-    ///////////
+    //
+    // Bonus Problem 1 solve
     errorCount++
-    ///////
+    //
   }
 
   // check if given question text is equal to user typed text
@@ -81,7 +83,7 @@ const gameOver = () => {
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
 
-  //
+  // Problem 7 solve
   const timeTakenRow = (finishTime - startTime) / 1000;
   ///////
   const timeTaken = parseInt(timeTakenRow);
@@ -133,8 +135,8 @@ const start = () => {
 
   const startCountdown = setInterval(() => {
 
+    // Problem 2 solve
     // countdownOverlay.innerHTML = '<h1>${count}</h1>';
-
     countdownOverlay.innerHTML = `<h1>${count}</h1>`;
 
     // finished timer
@@ -142,12 +144,11 @@ const start = () => {
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
 
+      // Problem 3 solve
       // countdownOverlay.style.display = "flex";
       countdownOverlay.style.display = "none";
 
       display.classList.remove("inactive");
-      // display.classList.add("active");
-
 
       clearInterval(startCountdown);
       startTime = new Date().getTime();
@@ -173,7 +174,8 @@ displayHistory();
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
-  //
+
+  // Problem 7 solve
   const timeSpentRow = (currentTime - startTime) / 1000;
   ////
   const timeSpent = parseInt(timeSpentRow)
